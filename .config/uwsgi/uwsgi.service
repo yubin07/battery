@@ -3,7 +3,7 @@ Description=uWSGI service
 After=syslog.target
  
 [Service]
-ExecStart=/home/ubuntu/myvenv/bin/uwsgi -i /srv/battery/.config/uwsgi/battery.ini
+ExecStart=/home/ubuntu/myvenv/bin/uwsgi -i ~/battery/.config/uwsgi/battery.ini
  
 Restart=always
 KillSignal=SIGQUIT
