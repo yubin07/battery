@@ -6,7 +6,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 import django
 django.setup()
-from app.models import real_time
+'''from app.models import real_time
 
 
 def real_graph(request):
@@ -20,3 +20,4 @@ def real_graph(request):
     plt.plot(x,y1)
 
     plt.savefig('C:/Users/82103/Desktop/battery/battery_venv/Scripts/mysite/app/static/assets/graph/foo.png')
+    '''

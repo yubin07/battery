@@ -4,7 +4,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 import django
 django.setup()
 
-from app.models import real_time
+'''from app.models import real_time
 
 with open('L9963_data_2022_11_ 2_15_56_54_voltage.txt', encoding='utf-8') as txtfile:
        while True:
@@ -24,5 +24,5 @@ with open('L9963_data_2022_11_ 2_15_56_54_voltage.txt', encoding='utf-8') as txt
                      cell_9 = float(row[9]),
                      cell_10 = float(row[10])
               )
-
+'''
 

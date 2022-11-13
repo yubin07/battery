@@ -2,12 +2,12 @@ from django.shortcuts import render
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from app.models import real_time
+#from app.models import real_time
 # Create your views here.
 
 def index(request):
     return render(request, 'index.html')
-
+'''
 def main(request):
     real_time_df = pd.DataFrame(list(real_time.objects.all().values()))
     
@@ -20,4 +20,5 @@ def main(request):
 
     plt.savefig('C:/Users/82103/Desktop/battery/battery_venv/Scripts/mysite/app/static/assets/graph/foo.png')
     return render(request, 'main.html')
+    '''
 
