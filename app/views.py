@@ -7,9 +7,11 @@ import matplotlib.pyplot as plt
 
 def index(request):
     return render(request, 'index.html')
-'''
+
 def main(request):
-    real_time_df = pd.DataFrame(list(real_time.objects.all().values()))
+    return render(request, 'main.html')
+  
+    ''' real_time_df = pd.DataFrame(list(real_time.objects.all().values()))
     
     x=np.arange(0,387)
     y=real_time_df.cell_1
@@ -21,4 +23,5 @@ def main(request):
     plt.savefig('C:/Users/82103/Desktop/battery/battery_venv/Scripts/mysite/app/static/assets/graph/foo.png')
     return render(request, 'main.html')
     '''
+
 
