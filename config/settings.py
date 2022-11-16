@@ -78,15 +78,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-#import my_settings
+import pymysql
+pymysql.install_as_MySQLdb()
+import my_settings
 
-DATABASES = {
+DATABASES = my_settings.DATABASES
+'''
+{
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-#my_settings.DATABASES
+'''
+
 
 
 # Password validation
