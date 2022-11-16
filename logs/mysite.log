@@ -1,1 +1,27 @@
 2022-11-17 03:11:51,577 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-11-17 03:24:35,371 [WARNING] django.request: Not Found: /static/admin/css/base.css
+2022-11-17 03:24:35,371 [WARNING] django.request: Not Found: /static/admin/css/dark_mode.css
+2022-11-17 03:24:35,375 [WARNING] django.request: Not Found: /static/admin/css/dashboard.css
+2022-11-17 03:24:35,388 [WARNING] django.request: Not Found: /static/admin/js/nav_sidebar.js
+2022-11-17 03:24:35,394 [WARNING] django.request: Not Found: /static/admin/css/nav_sidebar.css
+2022-11-17 03:24:35,399 [WARNING] django.request: Not Found: /static/admin/css/responsive.css
+2022-11-17 03:24:43,569 [WARNING] django.request: Not Found: /static/admin/css/base.css
+2022-11-17 03:24:43,571 [WARNING] django.request: Not Found: /static/admin/css/dark_mode.css
+2022-11-17 03:24:43,572 [WARNING] django.request: Not Found: /static/admin/css/nav_sidebar.css
+2022-11-17 03:24:43,574 [WARNING] django.request: Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+2022-11-17 03:24:43,575 [WARNING] django.request: Not Found: /static/admin/js/jquery.init.js
+2022-11-17 03:24:43,579 [WARNING] django.request: Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+2022-11-17 03:24:43,585 [WARNING] django.request: Not Found: /static/admin/css/responsive.css
+2022-11-17 03:24:43,593 [WARNING] django.request: Not Found: /static/admin/js/core.js
+2022-11-17 03:24:43,600 [WARNING] django.request: Not Found: /static/admin/js/prepopulate.js
+2022-11-17 03:24:43,601 [WARNING] django.request: Not Found: /static/admin/js/urlify.js
+2022-11-17 03:24:43,606 [WARNING] django.request: Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+2022-11-17 03:24:43,624 [WARNING] django.request: Not Found: /static/admin/css/changelists.css
+2022-11-17 03:24:43,646 [WARNING] django.request: Not Found: /static/admin/js/actions.js
+2022-11-17 03:24:43,655 [WARNING] django.request: Not Found: /static/admin/js/nav_sidebar.js
+2022-11-17 03:24:43,659 [WARNING] django.request: Not Found: /static/admin/js/filters.js
+2022-11-17 03:24:43,726 [WARNING] django.request: Not Found: /static/admin/css/responsive.css
+2022-11-17 03:48:17,292 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-11-17 03:48:21,103 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-17 03:56:52,107 [INFO] django.utils.autoreload: C:\Users\82103\Desktop\project\battery\my_settings.py changed, reloading.
+2022-11-17 03:56:53,892 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
