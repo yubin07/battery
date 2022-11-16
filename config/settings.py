@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-b_i(4*y-k3=2-m!71%)90qij#t8pa00p2()edmtjg%x^#=&0&o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1','172.31.12.93','ec2-13-124-56-172.ap-northeast-2.compute.amazonaws.com','13.124.56.172']
 
 
 # Application definition
@@ -83,14 +83,6 @@ pymysql.install_as_MySQLdb()
 import my_settings
 
 DATABASES = my_settings.DATABASES
-'''
-{
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-'''
 
 
 
