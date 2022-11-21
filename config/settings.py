@@ -43,7 +43,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','172.31.12.93','ec2-13-124-56-172.ap-northeast-2.compute.amazonaws.com','13.124.56.172']
+ALLOWED_HOSTS = ['127.0.0.1','172.31.46.223','ec2-43-200-191-104.ap-northeast-2.compute.amazonaws.com','43.200.191.104']
 
 
 # Application definition
@@ -143,7 +143,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
