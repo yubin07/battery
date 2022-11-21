@@ -1,10 +1,2 @@
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # engine: mysql
-        'NAME' : 'battery', # DB Name
-        'USER' : 'admin', # DB User
-        'PASSWORD' : 'rkddbqls12', # Password
-        'HOST': 'battery.cq1z58a6la88.ap-northeast-2.rds.amazonaws.com', # 생성한 데이터베이스 엔드포인트
-        'PORT': '3306', # 데이터베이스 포트
-    }
-}
+
+SECRET_KEY = 'django-insecure-b_i(4*y-k3=2-m!71%)90qij#t8pa00p2()edmtjg%x^#=&0&o'
