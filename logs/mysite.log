@@ -26,3 +26,7 @@
 2022-11-17 03:56:52,107 [INFO] django.utils.autoreload: C:\Users\82103\Desktop\project\battery\my_settings.py changed, reloading.
 2022-11-17 03:56:53,892 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2022-11-17 04:40:53,951 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-21 23:34:28,065 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-11-21 23:34:33,515 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-21 23:34:33,765 [WARNING] django.request: Not Found: /static/assets/favicon.ico
+2022-11-21 23:34:35,666 [WARNING] django.request: Not Found: /static/css/styles.css
