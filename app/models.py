@@ -13,3 +13,13 @@ class real_time(models.Model):
     cell_8= models.FloatField()
     cell_9= models.FloatField()
     cell_10= models.FloatField()
+
+class nasa_data(models.Model):
+    voltage_measured=models.FloatField()
+    current_measured=models.FloatField()
+    temperature_measured=models.FloatField()
+    current_load=models.FloatField()
+    voltage_load=models.FloatField()
+    time=models.FloatField()
+    capacity=models.FloatField()
+    cycle=models.IntegerField()

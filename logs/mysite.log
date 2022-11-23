@@ -308,3 +308,25 @@ tz
 2022-11-22 03:01:22,577 [INFO] django.utils.autoreload: C:\Users\82103\Desktop\project\battery\config\settings.py changed, reloading.
 2022-11-22 05:07:25,833 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2022-11-22 05:07:33,676 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 17:19:16,325 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-11-23 17:19:21,262 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 17:19:21,434 [WARNING] django.request: Not Found: /static/assets/favicon.ico
+2022-11-23 17:22:18,682 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-11-23 17:22:24,028 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 17:22:26,493 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 17:22:32,744 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:40:06,243 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-11-23 21:40:37,192 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:40:41,631 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:40:55,081 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:41:39,365 [INFO] django.utils.autoreload: C:\Users\82103\Desktop\project\battery\app\views.py changed, reloading.
+2022-11-23 21:41:47,755 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-11-23 21:42:16,532 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:42:17,650 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:46:10,696 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:46:11,264 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:46:11,682 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:46:12,022 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:46:12,416 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:46:13,142 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-11-23 21:46:46,657 [INFO] django.utils.autoreload: C:\Users\82103\Desktop\project\battery\config\settings.py changed, reloading.
