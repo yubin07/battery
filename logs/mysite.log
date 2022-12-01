@@ -330,3 +330,9 @@ tz
 2022-11-23 21:46:12,416 [WARNING] django.request: Not Found: /static/css/styles.css
 2022-11-23 21:46:13,142 [WARNING] django.request: Not Found: /static/css/styles.css
 2022-11-23 21:46:46,657 [INFO] django.utils.autoreload: C:\Users\82103\Desktop\project\battery\config\settings.py changed, reloading.
+2022-12-01 10:57:41,382 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-12-01 10:57:44,427 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-12-01 10:57:47,557 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-12-01 10:57:56,886 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-12-01 10:57:58,853 [WARNING] django.request: Not Found: /static/css/styles.css
+2022-12-01 10:58:03,307 [WARNING] django.request: Not Found: /static/css/styles.css
