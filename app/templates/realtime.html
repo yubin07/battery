@@ -1,4 +1,5 @@
 {% load static %}
+{% load rest_framework %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -42,11 +43,111 @@
           <div class="container px-4 px-lg-5 h-100">
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center" >
                 <div class="col-lg-8 align-self-top">
-                    <h3 class="text-white font-weight-bold">Real Time Data of Battery</h3>
+                    <h3 class="text-white font-weight-bold">State of Battery</h3>
                     <hr class="divider" />
                 </div>
                 
+                <div id="container">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    
+                    <script>
+                    $.ajax({
+                        url: "{% url 'app:chart' %}",
+                        dataType: 'json',
+                        success: function (data) {
+                            Highcharts.chart('container', {
+
+                            title: {
+                            text: 'Battery State'
+                            },
+
+                            subtitle: {
+                            text: 'change of voltage'
+                            },
+
+                            yAxis: {
+                            title: {
+                                text: 'voltage'
+                            }
+                            },
+
+                            xAxis: {
+                                title: {
+                                text: 'id'
+                            }
+                            },
+
+                            legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                            },
+
+                            plotOptions: {
+                            series: {
+                                label: {
+                                connectorAllowed: false
+                                },
+                                pointStart: 1
+                            }
+                            },
+
+                            series: [{
+                            name: 'cell_1',
+                            data: data.cell_1
+                            },{
+                            name: 'cell_2',
+                            data: data.cell_2
+                            }, {
+                            name: 'cell_3',
+                            data: data.cell_3
+                            }, {
+                            name: 'cell_4',
+                            data: data.cell_4
+                            },{
+                            name: 'cell_5',
+                            data: data.cell_5
+                            }, {
+                            name: 'cell_6',
+                            data: data.cell_6
+                            }, {
+                            name: 'cell_7',
+                            data: data.cell_7
+                            }, {
+                            name: 'cell_8',
+                            data: data.cell_8
+                            }, {
+                            name: 'cell_9',
+                            data: data.cell_9
+                            },{
+                            name: 'cell_10',
+                            data: data.cell_10
+                            }],
+
+                            responsive: {
+                            rules: [{
+                                condition: {
+                                maxWidth: 300
+                                },
+                                chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                                }
+                            }]
+                            }
+
+                            }
+                            )
+                        }
+                });
+                    </script>
+                </div>    
             </div>
-          </div>
+        </div>   
+            
 
 

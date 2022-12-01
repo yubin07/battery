@@ -10,5 +10,6 @@ urlpatterns = [
    path('index/',views.index,name='index'),
    path('logout/', auth_views.LogoutView.as_view(template_name='index.html'), name='logout'),
    path('nasa/',views.nasa,name='nasa'),
-   path('realtime/',views.realtime,name='realtime'),
+   path('realtime/',views.realtime.as_view(),name='realtime'),
+   path('chart/', views.BatteryStateView.as_view(), name="chart"),
 ]
