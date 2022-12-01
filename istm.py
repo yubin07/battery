@@ -53,11 +53,6 @@ if __name__ == "__main__":
   pred = model.predict(test_data)
   np.save('static/assets/pred',pred)
 
-  def find_nearest(array, value):
-    array = np.asarray(array)
-    idx = (np.abs(array - value)).argmin()
-    return array[idx]
-
   plt.figure(figsize=(12, 9))
   plt.plot(np.asarray(y_test)[20:], label='actual', color='blue')
   plt.plot(pred, label='prediction', color='red')

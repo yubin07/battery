@@ -10,6 +10,7 @@ from django.http import request
 from .serializer import RealSerializer,NasaSerializer
 from app.models import nasa_data
 from app.models import real_time
+import istm as ls
 # Create your views here.
 
 def index(request):
@@ -76,7 +77,7 @@ class BatteryStateView(APIView):
     state_serializer = RealSerializer(data=request.data) #Request의 data를 stateSerializer로 변환
 
     if state_serializer.is_valid():
-        state_serializer.save() #UserSerializer의 유효성 검사를 한 뒤 DB에 저장
+        state_serializer.save() 
         return Response(state_serializer.data, status=status.HTTP_201_CREATED) #client에게 JSON response 전달
     else:
         return Response(state_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
