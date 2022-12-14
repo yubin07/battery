@@ -54,7 +54,18 @@
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center" >
                 <div class="col-lg-8 align-self-top">
                     <h3 class="text-white font-weight-bold">*battery SOH prediction model 시각화*</h3>
+                        <form action="{% url 'app:nasa' %}" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <label for="a" style="color:white">측정 capacity (A)</label>
+                                <input type="float" name="a" id="a">
+                                <input type="submit" value="submit">
+                            </div>
+                        </form>
                     <hr class="divider"/>
+                    <div>
+                        <span id="rest_cycle_id" style="color: white;">{{rest_cycle}}</span>
+                    </div>
                 </div>
                 <div style="display:flex">
                     <div id="container1" style="flex:1;padding: 1px 1px 1px 1px;" >
@@ -67,6 +78,7 @@
                             url: "{% url 'app:nchart' %}",
                             dataType: 'json',
                             success: function (data) {
+                                
                                 Highcharts.chart('container1', {
     
                                 title: {
@@ -140,6 +152,7 @@
                             url: "{% url 'app:nchart' %}",
                             dataType: 'json',
                             success: function (data) {
+                                
                                 Highcharts.chart('container2', {
     
                                 title: {
@@ -202,6 +215,8 @@
     
                                 }
                                 )
+                                var element = document.getElementById("rest_cycle_id");
+                                element.innerText = "남은 사이클 : " + Math.floor(data.rest_cycle * 100) / 100 + " 회";
                             }
                     });
                         </script>

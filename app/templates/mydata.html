@@ -54,15 +54,18 @@
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center" >
                 <div class="col-lg-8 align-self-top">
                     <h3 class="text-white font-weight-bold">*battery SOH prediction model 시각화*</h3>
-                    <form action="{% url 'app:mydata' %}" method="get">
+                    <form action="{% url 'app:mydata' %}" method="post">
                         {% csrf_token %}
                         <div>
-                          <label for="a" style="color:white">측정 capacity</label>
+                          <label for="a" style="color:white">측정 capacity (A)</label>
                           <input type="float" name="a" id="a">
                           <input type="submit" value="submit">
                         </div>
                       </form>
                     <hr class="divider"/>
+                    <div>
+                        <span id="rest_cycle_id" style="color: white;">{{rest_cycle}}</span>
+                    </div>
                 </div>
                 <div style="display:flex">    
                     <div id='container2' style="flex:1;padding: 1px 1px 1px 1px;" >
@@ -75,6 +78,10 @@
                             url: "{% url 'app:mchart' %}",
                             dataType: 'json',
                             success: function (data) {
+                                var element = document.getElementById("rest_cycle_id");
+                                element.innerText = "남은 사이클 : " + Math.floor(data.rest_cycle * 100) / 100 + " 회";
+                                
+
                                 Highcharts.chart('container2', {
     
                                 title: {
@@ -121,24 +128,25 @@
                                 },],
     
                                 responsive: {
-                                rules: [{
-                                    condition: {
-                                    maxWidth: 200
-                                    },
-                                    chartOptions: {
-                                    legend: {
-                                        layout: 'horizontal',
-                                        align: 'left',
-                                        verticalAlign: 'bottom'
-                                    }
-                                    }
-                                }]
+                                    rules: [{
+                                        condition: {
+                                        maxWidth: 200
+                                        },
+                                        chartOptions: {
+                                        legend: {
+                                            layout: 'horizontal',
+                                            align: 'left',
+                                            verticalAlign: 'bottom'
+                                            }
+                                        }
+                                    }]
                                 }
     
                                 }
                                 )
+
                             }
-                    });
+                        });
                         </script>
                     </div> 
                     

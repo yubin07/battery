@@ -1,5 +1,7 @@
 import sys
 import json
+import django
+import glob
 sys.path.append('.')
 from django import forms
 import numpy as np
@@ -17,13 +19,24 @@ import os.path
 from django.shortcuts import render
 # Create your views here.
 
+global test_input_val
+test_input_val = '0.5'
+
+def set_input(inp):
+  global test_input_val
+  test_input_val= str(inp)
+  
+def return_input():
+  return test_input_val
+
+
 def index(request):
   return render(request, 'index.html')
 
 def main(request):
   return render(request,'main.html')
 
-def lstm_nasa():
+def lstm_nasa(test_size_val):
   import pandas as pd
   import matplotlib.pyplot as plt
   from django.http import request
@@ -34,7 +47,6 @@ def lstm_nasa():
   df = pd.DataFrame(data)
   size=df['cycle'].size
   cycle=df['cycle'][size-2]
-  cycle
 
   from sklearn.preprocessing import MinMaxScaler
 
@@ -47,7 +59,7 @@ def lstm_nasa():
   df = pd.DataFrame(scaled, columns=scale_cols)
 
   from sklearn.model_selection import train_test_split
-  x_train, x_test,y_train, y_test = train_test_split(df.drop('capacity', 1), df['capacity'], test_size=0.5, random_state=0, shuffle=False)
+  x_train, x_test,y_train, y_test = train_test_split(df.drop('capacity', 1), df['capacity'], test_size=test_size_val, random_state=0, shuffle=False)
 
   def windowed_dataset(series, window_size, batch_size, shuffle):
     series = tf.expand_dims(series, axis=-1)
@@ -63,7 +75,7 @@ def lstm_nasa():
   BATCH_SIZE=32
 
   # trian_data는 학습용 데이터셋, test_data는 검증용 데이터셋 입니다.
-  train_data = windowed_dataset(y_train, WINDOW_SIZE, BATCH_SIZE, True)
+  #train_data = windowed_dataset(y_train, WINDOW_SIZE, BATCH_SIZE, True)
   test_data = windowed_dataset(y_test, WINDOW_SIZE, BATCH_SIZE, False)
 
   model = tf.keras.models.load_model('static/assets/nasa_model.h5')
@@ -78,7 +90,7 @@ def lstm_nasa():
   
   rest_cycle=cycle*(len(pred)/len(df))
 
-  return pred,copy,df,cycle,y_test 
+  return pred,copy,df,cycle,y_test,rest_cycle
 
 def lstm_my(test_size_val):
   import pandas as pd
@@ -91,7 +103,6 @@ def lstm_my(test_size_val):
   df = pd.DataFrame(data)
   size=df['cycle'].size
   cycle=df['cycle'][size-2]
-  cycle
 
   from sklearn.preprocessing import MinMaxScaler
 
@@ -138,13 +149,16 @@ def lstm_my(test_size_val):
   
   rest_cycle=cycle*(len(pred)/len(df))
 
-  return pred,copy,df,cycle,y_test
+  return pred,copy,df,cycle,y_test,rest_cycle
 
 
 class nasaView(APIView):
   def get(self,request):
-    pred,copy,df,cycle,y_test=lstm_nasa()
-    #df=df.columns.values.tolist()+df.values.tolist()
+    full_capacity = float(2.8) 
+    k = float(test_input_val)
+    
+    test_size = ( k-( full_capacity * 0.7)) / (full_capacity - (full_capacity * 0.7))
+    pred,copy,df,cycle,y_test,rest_cycle=lstm_nasa(test_size)
     data = {
       'y_test_20' : np.asarray(y_test)[20:],
       'y_test_50' : np.asarray(y_test),
@@ -152,16 +166,46 @@ class nasaView(APIView):
       'pred' : pred,
       'df' : df,
       'cycle' : cycle,
+      'rest_cycle' : rest_cycle,
     }
-
+    
+    return Response(data)
+  
+  def post(self,request):
+    full_capacity = float(2.8) 
+    k = float(test_input_val)
+    
+    test_size = ( k-( full_capacity * 0.7)) / (full_capacity - (full_capacity * 0.7))
+    pred,copy,df,cycle,y_test,rest_cycle=lstm_nasa(test_size)
+    data = {
+      'y_test_20' : np.asarray(y_test)[20:],
+      'y_test_50' : np.asarray(y_test),
+      'copy' : copy,
+      'pred' : pred,
+      'df' : df,
+      'cycle' : cycle,
+      'rest_cycle' : rest_cycle,
+    }
+    
     return Response(data)
 
 class nasa(View):
-  def get(self,request):
-    return render(request,'nasa.html')
+  def get(self, request):
+    print('def get')
+    global test_input_val 
+    test_input_val = '2.38'
+    return render(request, 'nasa.html')
+  
+  def post(self, request):
+    print('def post')
+    print(request.POST.get('a'))
+    global test_input_val 
+    test_input_val = request.POST.get('a')
+    return render(request, 'nasa.html')
 
 class BatteryStateView(APIView):
   def get(self, request):
+    
         states = real_time.objects.all().order_by('id')
 
         cell1_list=[]
@@ -213,31 +257,69 @@ class realtime(View):
     def get(self, request):
         return render(request, 'realtime.html')
 
+
+'''
 def cal(request):
-  if request.method == "GET":
+  if request.method == "POST":
     full_capacity = float(2.8) 
-    user_capacity=request.GET.get('a')
+    user_capacity=request.POST.get('a')
     k=float(user_capacity)
     print(k)
     test_size_val = ( k-( full_capacity * 0.7)) / (full_capacity - (full_capacity * 0.7))
     return test_size_val
-
+'''
 
 class myView(APIView):
   def get(self,request):
-    test_size = cal(request)
-    pred,copy,df,cycle=lstm_my(test_size)
+    full_capacity = float(2.8) 
+    k = float(test_input_val)
+    
+    test_size = ( k-( full_capacity * 0.7)) / (full_capacity - (full_capacity * 0.7))
+    pred,copy,df,cycle,y_test,rest_cycle=lstm_my(test_size)
     data = {
+      'y_test_20' : np.asarray(y_test)[20:],
+      'y_test_50' : np.asarray(y_test),
       'copy' : copy,
       'pred' : pred,
       'df' : df,
       'cycle' : cycle,
+      'rest_cycle' : rest_cycle,
     }
+    
+    return Response(data)
+  
+  def post(self,request):
+    full_capacity = float(2.8) 
+    k = float(test_input_val)
+    
+    test_size = ( k-( full_capacity * 0.7)) / (full_capacity - (full_capacity * 0.7))
+    pred,copy,df,cycle,y_test,rest_cycle=lstm_my(test_size)
+    data = {
+      'y_test_20' : np.asarray(y_test)[20:],
+      'y_test_50' : np.asarray(y_test),
+      'copy' : copy,
+      'pred' : pred,
+      'df' : df,
+      'cycle' : cycle,
+      'rest_cycle' : rest_cycle,
+    }
+    
     return Response(data)
 
 class mydataView(View):
+  #print(View)
   def get(self, request):
-      return render(request, 'mydata.html')
+    print('def get')
+    global test_input_val 
+    test_input_val = '2.38'
+    return render(request, 'mydata.html')
+  
+  def post(self, request):
+    print('def post')
+    print(request.POST.get('a'))
+    global test_input_val 
+    test_input_val = request.POST.get('a')
+    return render(request, 'mydata.html')
 
 
 
