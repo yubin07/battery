@@ -34,7 +34,8 @@
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Logout</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'app:main' %}">Main</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app:nasa' %}">NASA Data set</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'app:mydata' %}">Collected</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'app:nasa' %}">NASA Data</a></li>
                     </ul>
                 </div>
             </div>
@@ -44,107 +45,927 @@
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center" >
                 <div class="col-lg-8 align-self-top">
                     <h3 class="text-white font-weight-bold">State of Battery</h3>
+                    <select id="selectbox" name="selectbox" onchange="cellchange()">
+                        <option value="" selected disabled>cell 선택</option>
+                        <option value="all">all</option>              
+                        <option value="cell1">cell1</option>
+                        <option value="cell2">cell2</option>
+                        <option value="cell3">cell3</option>
+                        <option value="cell4">cell4</option>
+                        <option value="cell5">cell5</option>
+                        <option value="cell6">cell6</option>
+                        <option value="cell7">cell7</option>
+                        <option value="cell8">cell8</option>
+                        <option value="cell9">cell9</option>
+                        <option value="cell10">cell10</option>
+                    </select>
                     <hr class="divider" />
                 </div>
-                
-                <div id="container">
+                <div id="all" style="display: none;">
                     <script src="https://code.highcharts.com/highcharts.src.js"></script>
                     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-                    
                     <script>
-                    $.ajax({
-                        url: "{% url 'app:chart' %}",
-                        dataType: 'json',
-                        success: function (data) {
-                            Highcharts.chart('container', {
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('all',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
 
-                            title: {
-                            text: 'Battery State'
-                            },
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
 
-                            subtitle: {
-                            text: 'change of voltage'
-                            },
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
 
-                            yAxis: {
-                            title: {
-                                text: 'voltage'
-                            }
-                            },
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        
+                                        },
+                                        series: [{
+                                        name: 'cell_1',
+                                        data: data.cell_1
+                                        },{
+                                        name: 'cell_2',
+                                        data: data.cell_2
+                                        }, {
+                                        name: 'cell_3',
+                                        data: data.cell_3
+                                        }, {
+                                        name: 'cell_4',
+                                        data: data.cell_4
+                                        },{
+                                        name: 'cell_5',
+                                        data: data.cell_5
+                                        }, {
+                                        name: 'cell_6',
+                                        data: data.cell_6
+                                        }, {
+                                        name: 'cell_7',
+                                        data: data.cell_7
+                                        }, {
+                                        name: 'cell_8',
+                                        data: data.cell_8
+                                        }, {
+                                        name: 'cell_9',
+                                        data: data.cell_9
+                                        },{
+                                        name: 'cell_10',
+                                        data: data.cell_10
+                                        }],
 
-                            xAxis: {
-                                title: {
-                                text: 'id'
-                            }
-                            },
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
 
-                            legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'middle'
-                            },
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
 
-                            plotOptions: {
-                            series: {
-                                label: {
-                                connectorAllowed: false
-                                },
-                                pointStart: 1
-                            }
-                            },
-
-                            series: [{
-                            name: 'cell_1',
-                            data: data.cell_1
-                            },{
-                            name: 'cell_2',
-                            data: data.cell_2
-                            }, {
-                            name: 'cell_3',
-                            data: data.cell_3
-                            }, {
-                            name: 'cell_4',
-                            data: data.cell_4
-                            },{
-                            name: 'cell_5',
-                            data: data.cell_5
-                            }, {
-                            name: 'cell_6',
-                            data: data.cell_6
-                            }, {
-                            name: 'cell_7',
-                            data: data.cell_7
-                            }, {
-                            name: 'cell_8',
-                            data: data.cell_8
-                            }, {
-                            name: 'cell_9',
-                            data: data.cell_9
-                            },{
-                            name: 'cell_10',
-                            data: data.cell_10
-                            }],
-
-                            responsive: {
-                            rules: [{
-                                condition: {
-                                maxWidth: 300
-                                },
-                                chartOptions: {
-                                legend: {
-                                    layout: 'horizontal',
-                                    align: 'center',
-                                    verticalAlign: 'bottom'
-                                }
-                                }
-                            }]
-                            }
-
-                            }
-                            )
-                        }
-                });
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
                     </script>
+                </div>
+                <div id="cell1" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell1',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_1',
+                                        data: data.cell_1
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell2" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell2',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_2',
+                                        data: data.cell_2
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell3" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell3',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_3',
+                                        data: data.cell_3
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell4" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell4',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_4',
+                                        data: data.cell_4
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell5" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell5',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_5',
+                                        data: data.cell_5
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell6" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell6',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_6',
+                                        data: data.cell_6
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell7" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell7',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_7',
+                                        data: data.cell_7
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell8" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell8',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_8',
+                                        data: data.cell_8
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell9" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell9',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_9',
+                                        data: data.cell_9
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <div id="cell10" style="display: none;">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    <script>
+                        $.ajax({
+                            url: "{% url 'app:chart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('cell10',{
+                                        title: {
+                                        text: 'Battery State'
+                                        },
+
+                                        subtitle: {
+                                        text: 'change of voltage'
+                                        },
+
+                                        yAxis: {
+                                        title: {
+                                            text: 'voltage'
+                                        }
+                                        },
+
+                                        xAxis: {
+                                            title: {
+                                            text: 'time'
+                                        }
+                                        },
+                                        series: [{
+                                        name: 'cell_10',
+                                        data: data.cell_10
+                                        },],
+
+                                        legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle'
+                                        },
+
+                                        plotOptions: {
+                                        series: {
+                                            label: {
+                                            connectorAllowed: false
+                                            },
+                                            pointStart: 1
+                                        }
+                                        },
+
+                                        responsive: {
+                                        rules: [{
+                                            condition: {
+                                            maxWidth: 300
+                                            },
+                                            chartOptions: {
+                                            legend: {
+                                                layout: 'horizontal',
+                                                align: 'center',
+                                                verticalAlign: 'bottom'
+                                            }
+                                            }
+                                        }]
+                                    }  
+                                    }
+                                )}
+                                });
+                    </script>
+                </div>
+                <script>
+                    function cellchange() {
+                            $('#selectbox').change(function() {
+                                var result = $('#selectbox option:selected').val();
+                                if (result == 'all') {
+                                    document.getElementById('all').style.display="";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell1') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell1').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell2') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell2').style.display="";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell3') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell3').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell4') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell4').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell5') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell5').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell6') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell6').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell7') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell7').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell8') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell8').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell9') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell9').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                    document.getElementById('cell10').style.display="none";
+                                } else if (result == 'cell10') {
+                                    document.getElementById('all').style.display="none";
+                                    document.getElementById('cell10').style.display="";
+                                    document.getElementById('cell2').style.display="none";
+                                    document.getElementById('cell3').style.display="none";
+                                    document.getElementById('cell4').style.display="none";
+                                    document.getElementById('cell5').style.display="none";
+                                    document.getElementById('cell6').style.display="none";
+                                    document.getElementById('cell7').style.display="none";
+                                    document.getElementById('cell8').style.display="none";
+                                    document.getElementById('cell9').style.display="none";
+                                    document.getElementById('cell1').style.display="none";
+                                }
+                            }); 
+                            }; 
+                </script>
                 </div>    
             </div>
         </div>   

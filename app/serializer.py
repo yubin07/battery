@@ -2,6 +2,7 @@ from django.core import serializers
 from rest_framework import serializers
 from app.models import real_time
 from app.models import nasa_data
+from app.models import capacity
 
 class RealSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,3 +34,10 @@ class NasaSerializer(serializers.ModelSerializer):
     time=serializers.FloatField()
     capacity=serializers.FloatField()
     cycle=serializers.IntegerField()
+
+class MySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = capacity
+        fields = ['user_capacity']
+    
+    user_capacity=serializers.FloatField()

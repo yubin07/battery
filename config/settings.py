@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'app',
     'users',
     'bootstrap4',
-    'istm',
 ]
 
 MIDDLEWARE = [

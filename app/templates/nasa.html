@@ -20,6 +20,16 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <style>
+            section{
+                width: 600px;
+                overflow: hidden;
+            }
+            section article{
+                width: 200px;
+                height: 100px;
+                float: left;
+                box-sizing: border-box;
+            }
 
         </style>
     </head>
@@ -33,6 +43,7 @@
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Logout</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'app:main' %}">Main</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'app:mydata' %}">Collected</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'app:realtime' %}">State</a></li>
                     </ul>
                 </div>
@@ -42,45 +53,170 @@
           <div class="container px-4 px-lg-5 h-100">
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center" >
                 <div class="col-lg-8 align-self-top">
-                    <h3 class="text-white font-weight-bold">*battery soh prediction model 시각화*</h3>
+                    <h3 class="text-white font-weight-bold">*battery SOH prediction model 시각화*</h3>
                     <hr class="divider"/>
                 </div>
-                <div style="float:left; width: 49%" >
-                  그래프 1. <br>
-                  <img alt="" src="{% static 'assets/img/1_up.png' %}" width="300" height="300"> </div>
-                <div style="float:right; width: 49%">
-                  그래프 2. <br>
-                  <img alt="" src="{% static 'assets/img/1_down.png' %}" width="300" height="300">
+                <div style="display:flex">
+                    <div id="container1" style="flex:1;padding: 1px 1px 1px 1px;" >
+                    
+                        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                        
+                        <script>
+                        $.ajax({
+                            url: "{% url 'app:nchart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('container1', {
+    
+                                title: {
+                                text: 'Battery Prediction'
+                                },
+    
+    
+                                yAxis: {
+                                title: {
+                                    text: 'capacity'
+                                }
+                                },
+    
+                                xAxis: {
+                                    title: {
+                                    text: 'time'
+                                }
+                                },
+    
+                                legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle'
+                                },
+    
+                                plotOptions: {
+                                series: {
+                                    label: {
+                                    connectorAllowed: false
+                                    },
+                                    pointStart: 1
+                                }
+                                },
+    
+                                series: [{
+                                name: 'actual',
+                                data: data.y_test_20
+                                },{
+                                    name: 'prediction',
+                                    data: data.pred
+                                }],
+    
+                                responsive: {
+                                rules: [{
+                                    condition: {
+                                    maxWidth: 200
+                                    },
+                                    chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'left',
+                                        verticalAlign: 'bottom'
+                                    }
+                                    }
+                                }]
+                                }
+    
+                                }
+                                )
+                            }
+                    });
+                        </script>
+                    </div>    
+                    <div id='container2' style="flex:1;padding: 1px 1px 1px 1px;" >
+                    
+                        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                        
+                        <script>
+                        $.ajax({
+                            url: "{% url 'app:nchart' %}",
+                            dataType: 'json',
+                            success: function (data) {
+                                Highcharts.chart('container2', {
+    
+                                title: {
+                                text: 'Battery Prediction'
+                                },
+    
+                                subtitle: {
+                                text: 'prediction'
+                                },
+    
+                                yAxis: {
+                                title: {
+                                    text: 'capacity'
+                                }
+                                },
+    
+                                xAxis: {
+                                    title: {
+                                    text: 'time'
+                                }
+                                },
+    
+                                legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle'
+                                },
+    
+                                plotOptions: {
+                                series: {
+                                    label: {
+                                    connectorAllowed: false
+                                    },
+                                    pointStart: 1
+                                }
+                                },
+    
+                                series: [{
+                                name: 'prediction',
+                                data: data.copy
+                                },{
+                                    name: 'actual',
+                                    data: data.df['capacity']
+                                }],
+    
+                                responsive: {
+                                rules: [{
+                                    condition: {
+                                    maxWidth: 200
+                                    },
+                                    chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'left',
+                                        verticalAlign: 'bottom'
+                                    }
+                                    }
+                                }]
+                                }
+    
+                                }
+                                )
+                            }
+                    });
+                        </script>
+                    </div> 
                 </div>
-                    <a class="btn btn-primary btn-xl" style="width:20%;" href="{% url 'users:login' %}">make new</a>
-                
             </div>
           </div>
         </header>
-        <!-- About-->
-        <section class="page-section bg-primary" id="about">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">SOH by NASA data set</h2>
-                        <hr class="divider divider-light"/>
-                        <div>
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                <div>
-                                  <label for="capacity" class="text-white-75 mb-5">현재 용량</label>
-                                  <input type="int" name="capacity" id="capacity">
-                                </div>
-                                <br>
-                                <input type="submit" value="submit" class="btn btn-light btn-xl" style="width:20%;">
-                            </form>
-                            <hr>
-                            <p class="text-white-75 mb-5">예상 SOH (in NASA Data set)</p>
-                            <p class="text-white-75 mb-5">{{soh}}</p>
-                        </div>
-                    </div>
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+              <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center" >
+                  
                 </div>
             </div>
-        </section>
+
+       
 
 

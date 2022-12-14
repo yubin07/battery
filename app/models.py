@@ -23,3 +23,5 @@ class nasa_data(models.Model):
     time=models.FloatField()
     capacity=models.FloatField()
     cycle=models.IntegerField()
+class capacity(models.Model):
+    user_capacity=models.FloatField()

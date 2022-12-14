@@ -30,25 +30,47 @@
                 <a class="navbar-brand" href="{% url 'app:index' %}">Home</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Logout</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app:nasa' %}">NASA Data</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'app:realtime' %}">State</a></li>
-                    </ul>
+                    
                 </div>
             </div>
         </nav> 
         <header class="masthead">
-          <div class="container px-4 px-lg-5 h-100">
-            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center" >
-                <div class="col-lg-8 align-self-top">
-                    <h3 class="text-white font-weight-bold">NASA data set으로 학습시킨 ai모델의 예측 그래프와 사용 중인 배터리의 상태를 볼 수 있습니다.</h3>
-                    <hr class="divider"/>
+            <section class="page-section" id="services">
+                <div class="container px-4 px-lg-5">
+                    <h2 class="text-white mt-0" style="text-align:center" >Service</h2>
+                    <hr class="divider" />
+                    <div class="row gx-4 gx-lg-5">
+                        <div class="col-lg-3 col-md-6 text-center">
+                            <div class="mt-5">
+                                <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
+                                <h3 class="text-white font-weight-bold"><a href="{% url 'app:mydata' %}" style="color:white">Collected Data</a></h3>
+                                <p class="text-muted mb-0"></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 text-center">
+                            <div class="mt-5">
+                                <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
+                                <h3 class="text-white font-weight-bold"><a href="{% url 'app:realtime' %}" style="color:white">State</a></h3>
+                                <p class="text-muted mb-0"></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 text-center">
+                            <div class="mt-5">
+                                <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
+                                <h3 class="text-white font-weight-bold"><a href="{% url 'app:nasa' %}" style="color:white">Nasa Data</a></h3>
+                                <p class="text-muted mb-0"></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 text-center">
+                            <div class="mt-5">
+                                <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
+                                <h3 class="text-white font-weight-bold"><a href="http://www.semiroad.co.kr/" style="color:white">With</a></h3>
+                                <p class="text-muted mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-8 align-self-baseline">
-                  <a href="http://www.semiroad.co.kr/">산학협력기업</a>
-                </div>    
-            </div>
+            </section>
           </div>
 
 
