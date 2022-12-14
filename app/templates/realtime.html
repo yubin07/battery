@@ -69,6 +69,7 @@
                             url: "{% url 'app:chart' %}",
                             dataType: 'json',
                             success: function (data) {
+                                console.log(data.cell_1[data.cell_1.length - 1][1])
                                 Highcharts.chart('all',{
                                         title: {
                                         text: 'Battery State'
