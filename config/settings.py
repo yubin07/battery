@@ -43,7 +43,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','172.31.46.223','ec2-43-200-191-104.ap-northeast-2.compute.amazonaws.com','43.200.191.104','3.36.60.165','172.31.7.137','ec2-3-36-60-165.ap-northeast-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['127.0.0.1','172.31.46.223','ec2-43-200-191-104.ap-northeast-2.compute.amazonaws.com','43.200.191.104','3.36.60.165','172.31.7.137','ec2-3-36-60-165.ap-northeast-2.compute.amazonaws.com','54.180.143.108','172.31.7.137','ec2-54-180-143-108.ap-northeast-2.compute.amazonaws.com']
 
 
 # Application definition
